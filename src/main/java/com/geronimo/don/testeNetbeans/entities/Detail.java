@@ -40,7 +40,6 @@ public class Detail implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 512)
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)

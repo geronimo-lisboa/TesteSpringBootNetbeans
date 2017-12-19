@@ -5,8 +5,11 @@
  */
 package com.geronimo.don.testeNetbeans;
 
+import com.geronimo.don.testeNetbeans.datasources.MasterRepository;
+import com.geronimo.don.testeNetbeans.entities.Master;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,12 +22,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-/**
- *
- * @author luciano
- */
+
 @RestController
 public class TesteRest {
+    @Autowired
+    private MasterRepository masterRepo;
+
+    @RequestMapping(path = "/masters" , method = GET)
+    public Iterable<Master> getAllMasters(){
+        Iterable<Master> lst =  masterRepo.findAll();
+        return lst;
+    }
+    
     
     @RequestMapping(path = "/teste", method = GET)
     public List<String> list() {

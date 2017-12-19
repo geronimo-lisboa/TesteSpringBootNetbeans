@@ -1,6 +1,16 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 window.client = (function () {
+  function getAllMasters(success)  {
+    return fetch('/', {
+      headers: {
+        Accept: 'application/json',
+      },
+    }).then(checkStatus)
+      .then(parseJSON)
+      .then(success);
+  }
+    
   function getTimers(success) {
     return fetch('/api/timers', {
       headers: {
@@ -89,5 +99,6 @@ window.client = (function () {
     startTimer,
     stopTimer,
     deleteTimer,
+    getAllMasters,
   };
 }());

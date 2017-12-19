@@ -38,7 +38,6 @@ public class Master implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 512)
     @Column(name = "nome")
     private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMaster", fetch = FetchType.LAZY)
