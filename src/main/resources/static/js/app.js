@@ -7,24 +7,39 @@ class MastersDashboard extends React.Component{
     
     componentDidMount(){
         this.loadMastersFromServer();
-        setInterval(this.loadMastersFromServer(), 5000);
     }
-    
-    loadMastersFromServer = ()=>{
-        client.getAllMasters((masters)=>(
-             this.setState({state:masters})
-        ));
+    //Faz o fetch da lista de masters
+    loadMastersFromServer = ()=>{        
+        client.getAllMasters((serverMasters) => (
+            this.setState({ masters: serverMasters })
+            )
+        );
+
     }
     
     render(){
-        const masterList = this.state.masters.map((current)=>{
-            console.log(current);
-        });
+        const mastersList = this.state.masters.map((currentMaster)=>
+        (
+                <div>
+                    <Master/>
+                </div>
+        ));
         return(
                 <div>
-                Hello World
+                    <div>Hello World</div>
+                    <div>
+                        {mastersList}
+                    </div>
                 </div>
-        )
+        );
+    }
+}
+
+class Master extends React.Component{
+    render(){
+        return(<div>
+                A master
+                </div>)
     }
 }
 //Responsável pela renderização do dashboard na div de id = content
