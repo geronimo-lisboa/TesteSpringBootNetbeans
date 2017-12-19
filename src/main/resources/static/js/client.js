@@ -10,6 +10,17 @@ window.client = (function () {
       .then(parseJSON)
       .then(success);
   }
+  function createMaster(data) {
+    return fetch('/newMaster', {
+      method: 'post',
+      body: JSON.stringify(data),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(checkStatus);
+  } 
+    
     
   function getTimers(success) {
     return fetch('/api/timers', {
@@ -100,5 +111,6 @@ window.client = (function () {
     stopTimer,
     deleteTimer,
     getAllMasters,
+    createMaster,
   };
 }());

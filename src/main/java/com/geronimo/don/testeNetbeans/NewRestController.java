@@ -5,11 +5,7 @@
  */
 package com.geronimo.don.testeNetbeans;
 
-import com.geronimo.don.testeNetbeans.datasources.MasterRepository;
-import com.geronimo.don.testeNetbeans.entities.Master;
-import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,28 +18,37 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-
+/**
+ *
+ * @author luciano
+ */
 @RestController
-public class TesteRest {
-    @Autowired
-    private MasterRepository masterRepo;
-
-    @RequestMapping(path = "/masters" , method = GET)
-    public Iterable<Master> getAllMasters(){
-        Iterable<Master> lst =  masterRepo.findAll();
-        return lst;
-    }
-    @RequestMapping(path="/newMaster",  method = POST)
-    public Master createNewMaster(@RequestBody Master input) {
+//@RequestMapping("/url")
+public class NewRestController {
+  /*  
+    @RequestMapping(method = GET)
+    public List<Object> list() {
         return null;
     }
     
-    @RequestMapping(path = "/teste", method = GET)
-    public List<String> list() {
-        List<String> foo = new ArrayList<>();
-        foo.add("a");
-        foo.add("b");
-        return foo;
+    @RequestMapping(value = "/{id}", method = GET)
+    public Object get(@PathVariable String id) {
+        return null;
     }
-        
+    
+    @RequestMapping(value = "/{id}", method = PUT)
+    public ResponseEntity<?> put(@PathVariable String id, @RequestBody Object input) {
+        return null;
+    }
+    
+    @RequestMapping(value = "/{id}", method = POST)
+    public ResponseEntity<?> post(@PathVariable String id, @RequestBody Object input) {
+        return null;
+    }
+    
+    @RequestMapping(value = "/{id}", method = DELETE)
+    public ResponseEntity<Object> delete(@PathVariable String id) {
+        return null;
+    }*/
+    
 }
