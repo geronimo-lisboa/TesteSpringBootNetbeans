@@ -23,6 +23,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 
+
 @RestController
 public class TesteRest {
     @Autowired
@@ -37,6 +38,12 @@ public class TesteRest {
     public Master createNewMaster(@RequestBody Master input) {
         input = masterRepo.save(input);
         return input;
+    }
+    //Somente o id importa e é com ele que eu excluo o master
+    @RequestMapping(path="/deleteMaster", method=DELETE)
+    public Master deleteMaster(@RequestBody Master input){
+        masterRepo.delete(input.getId());
+        return null;
     }
     
     @RequestMapping(path = "/teste", method = GET)

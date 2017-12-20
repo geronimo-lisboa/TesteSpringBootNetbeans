@@ -16,15 +16,22 @@ class MastersDashboard extends React.Component{
             this.setState({ masters: serverMasters })
             )
         );
-
     }
     //Aqui manda pro serviço que cria um novo master e depois pede a lista 
     //atualizada de volta.
     handleNewMaster = (newMasterData)=>{
-        client.createMaster(newMasterData);
-//        console.log(newMasterData);
-//        alert('aa');
-    }
+        client.createMaster(newMasterData, this.loadMastersFromServer);
+    };
+    
+    handleDeleteMaster = (masterId)=>{
+        const masterToDie = {
+            id:masterId,
+            nome:"!doesn't matter!",
+            detailList:[],
+        }
+        client.deleteMaster(masterToDie, this.loadMastersFromServer);
+    };
+    
     render(){
         const mastersList = this.state.masters.map((currentMaster)=>
         (
@@ -33,7 +40,8 @@ class MastersDashboard extends React.Component{
                     key={currentMaster.id}
                     id={currentMaster.id}
                     nome={currentMaster.nome}
-                    detailList={currentMaster.detailList}/>
+                    detailList={currentMaster.detailList}
+                    onDeleteMaster={this.handleDeleteMaster}/>
                 </div>
         ));
         return(
@@ -63,6 +71,7 @@ class NewMasterForm extends React.Component{
         this.setState({name:e.target.value});
     };
     handleSubmit = ()=>{
+        this.hideNewMasterForm();
         this.props.onNewMasterFormSubmit({
             nome : this.state.name,
         });
@@ -89,9 +98,16 @@ class NewMasterForm extends React.Component{
 }
 
 class Master extends React.Component{
+    handleDeleteClick = ()=>{
+        this.props.onDeleteMaster(this.props.id);
+    }
+    
     render(){
         return(<div>
                 {this.props.nome}
+                <button>Expandir</button>
+                <button>Editar</button>
+                <button onClick={this.handleDeleteClick}>Excluir</button>
                 </div>)
     }
 }

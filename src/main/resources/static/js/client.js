@@ -10,7 +10,8 @@ window.client = (function () {
       .then(parseJSON)
       .then(success);
   }
-  function createMaster(data) {
+  
+  function createMaster(data, afterSave) {
     return fetch('/newMaster', {
       method: 'post',
       body: JSON.stringify(data),
@@ -18,8 +19,21 @@ window.client = (function () {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-    }).then(checkStatus);
+    }).then(checkStatus)
+      .then(afterSave);
   } 
+  
+  function deleteMaster(data,afterDelete) {
+    return fetch('/deleteMaster', {
+      method: 'delete',
+      body: JSON.stringify(data),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(checkStatus)
+      .then(afterDelete);
+  }
     
     
   function getTimers(success) {
@@ -110,7 +124,9 @@ window.client = (function () {
     startTimer,
     stopTimer,
     deleteTimer,
+    
     getAllMasters,
     createMaster,
+    deleteMaster,
   };
 }());
