@@ -98,17 +98,34 @@ class NewMasterForm extends React.Component{
 }
 
 class Master extends React.Component{
+    state = {
+        showDetails : false,
+    };
     handleDeleteClick = ()=>{
         this.props.onDeleteMaster(this.props.id);
     }
-    
+    handleExpandirClick = ()=>{
+        if(this.state.showDetails===false){
+            this.setState({showDetails:true});
+        }else{
+            this.setState({showDetails:false});
+        }
+    }
     render(){
-        return(<div>
+        if(this.state.showDetails===false)
+        {
+            return(<div>
                 {this.props.nome}
-                <button>Expandir</button>
-                <button>Editar</button>
+                <button onClick={this.handleExpandirClick}>Expandir</button>
                 <button onClick={this.handleDeleteClick}>Excluir</button>
-                </div>)
+                </div>)            
+        }else{
+            return(<div>
+                {this.props.nome}
+                <button onClick={this.handleExpandirClick}>Ocultar</button>
+                <button onClick={this.handleDeleteClick}>Excluir</button>
+                </div>)                        
+        }
     }
 }
 
