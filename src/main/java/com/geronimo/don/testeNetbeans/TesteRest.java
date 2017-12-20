@@ -35,7 +35,8 @@ public class TesteRest {
     }
     @RequestMapping(path="/newMaster",  method = POST)
     public Master createNewMaster(@RequestBody Master input) {
-        return null;
+        input = masterRepo.save(input);
+        return input;
     }
     
     @RequestMapping(path = "/teste", method = GET)
