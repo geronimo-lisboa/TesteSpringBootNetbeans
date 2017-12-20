@@ -31,7 +31,11 @@ class MastersDashboard extends React.Component{
         }
         client.deleteMaster(masterToDie, this.loadMastersFromServer);
     };
-    
+   
+    handleChangeMaster = (modifiedMaster)=>{
+        client.updateMaster(modifiedMaster, this.loadMastersFromServer);
+    }
+   
     render(){
         const mastersList = this.state.masters.map((currentMaster)=>
         (
@@ -41,7 +45,8 @@ class MastersDashboard extends React.Component{
                     id={currentMaster.id}
                     nome={currentMaster.nome}
                     detailList={currentMaster.detailList}
-                    onDeleteMaster={this.handleDeleteMaster}/>
+                    onDeleteMaster={this.handleDeleteMaster}
+                    onChangeMaster={this.handleChangeMaster}/>
                 </div>
         ));
         return(
@@ -111,6 +116,15 @@ class Master extends React.Component{
             this.setState({showDetails:false});
         }
     }
+    //Pega o nome modificado
+    handleOnNameChange = (e)=>{
+        const changedData = {
+            id:this.props.id,
+            nome:e.target.value,
+            detailList:this.props.detailList};
+        this.props.onChangeMaster(changedData);
+
+    }
     render(){
         if(this.state.showDetails===false)
         {
@@ -119,9 +133,10 @@ class Master extends React.Component{
                 <button onClick={this.handleExpandirClick}>Expandir</button>
                 <button onClick={this.handleDeleteClick}>Excluir</button>
                 </div>)            
-        }else{
+        }else{//Essa é a versão para edição. Na versão para edição o nome é alterável
+            //e posso adicionar e remover details
             return(<div>
-                {this.props.nome}
+                <input type='text' value={this.props.nome} onChange={this.handleOnNameChange}/>                
                 <button onClick={this.handleExpandirClick}>Ocultar</button>
                 <button onClick={this.handleDeleteClick}>Excluir</button>
                 </div>)                        

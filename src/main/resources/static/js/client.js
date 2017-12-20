@@ -23,6 +23,19 @@ window.client = (function () {
       .then(afterSave);
   } 
   
+  function updateMaster(data, afterSave) {
+    return fetch('/masters', {
+      method: 'put',
+      body: JSON.stringify(data),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(checkStatus)
+      .then(afterSave);
+  }
+  
+  
   function deleteMaster(data,afterDelete) {
     return fetch('/deleteMaster', {
       method: 'delete',
@@ -128,5 +141,6 @@ window.client = (function () {
     getAllMasters,
     createMaster,
     deleteMaster,
+    updateMaster,
   };
 }());

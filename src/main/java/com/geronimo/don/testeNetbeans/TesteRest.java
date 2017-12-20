@@ -23,12 +23,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 
-
 @RestController
 public class TesteRest {
     @Autowired
     private MasterRepository masterRepo;
-
+    @RequestMapping(path="/masters", method=PUT)
+    public Master putMaster(@RequestBody Master aMaster){
+        masterRepo.save(aMaster);
+        return aMaster;
+    }
+    
     @RequestMapping(path = "/masters" , method = GET)
     public Iterable<Master> getAllMasters(){
         Iterable<Master> lst =  masterRepo.findAll();
